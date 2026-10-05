@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "soberoctober-wall",
+  "account_id": "1b57b800e3babbb0baea2e39d038076d",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-10-05",
+  "workers_dev": true,
+  "observability": {"enabled": false},
+  "rules": [{"type":"Text","globs":["**/*.html"],"fallthrough":true}],
+  "vars": {"ALLOWED_ORIGINS":"https://soberoctober.ru,https://pr0kopenko.github.io"},
+  "d1_databases": [{"binding":"DB","database_name":"soberoctober-wall","database_id":"687bf590-aa08-423a-82fd-3a2ca0dbee50"}],
+  "triggers": {"crons":["17 3 * * *"]}
+}
+

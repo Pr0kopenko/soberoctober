@@ -1,0 +1,3 @@
+import admin from './admin.html';
+import {handle,cleanup} from './handler.mjs';
+export default {fetch(request,env){if(new URL(request.url).pathname==='/admin')return new Response(admin,{headers:{'Content-Type':'text/html;charset=utf-8','Cache-Control':'no-store','X-Robots-Tag':'noindex','X-Frame-Options':'DENY','Referrer-Policy':'no-referrer','Content-Security-Policy':"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"}});return handle(request,env);},async scheduled(event,env){await cleanup(env);}};
