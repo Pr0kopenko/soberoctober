@@ -1,4 +1,4 @@
-import {mkdir,readFile,writeFile,cp} from 'node:fs/promises';
+import {mkdir,readFile,writeFile,cp,unlink} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {articles} from '../src/content.mjs';
 import {legalPages} from '../src/legal.mjs';
@@ -8,6 +8,8 @@ const base=(process.env.BASE_PATH||'').replace(/\/$/,'');
 if(base&&!/^\/[a-zA-Z0-9_-]+$/.test(base))throw Error('BASE_PATH must be a single /repository path');
 const noindex=process.env.NOINDEX==='true';
 await mkdir(out,{recursive:true});await cp('public',out,{recursive:true});await cp('src/domain.mjs',resolve(out,'domain.mjs'));
+// Switching back to a repository preview must not retain a prior custom-domain file.
+if(!process.env.SITE_DOMAIN){try{await unlink(resolve(out,'CNAME'));}catch(e){if(e.code!=='ENOENT')throw e;}}
 const routes=[
 {path:'/',title:'31 день без алкоголя. Ваш октябрь — ваши правила',description:'Sober October: начните 31 день без алкоголя в любую дату. Калькулятор денег и калорий, личный трекер без регистрации, Bingo и карточки прогресса.',body:home(articles)},
 {path:'/calculator/',title:'Калькулятор экономии на алкоголе',description:'Посчитайте стоимость привычных напитков, порции и приблизительные калории за 31 день. Настройте личный Sober October без регистрации.',body:calculator()},

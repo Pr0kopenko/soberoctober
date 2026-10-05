@@ -6,3 +6,6 @@ soberoctober.ru {
 soberoctober.online, www.soberoctober.online, www.soberoctober.ru {
     redir https://soberoctober.ru{uri} 301
 }
+http://soberoctober.online, http://www.soberoctober.online, http://www.soberoctober.ru {
+    redir https://soberoctober.ru{uri} 301
+}
