@@ -1,0 +1,8 @@
+soberoctober.ru {
+    root * /var/www/soberoctober/dist
+    encode zstd gzip
+    file_server
+}
+soberoctober.online, www.soberoctober.online, www.soberoctober.ru {
+    redir https://soberoctober.ru{uri} 301
+}

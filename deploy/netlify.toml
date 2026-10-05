@@ -1,0 +1,23 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+[[redirects]]
+  from = "https://soberoctober.online/*"
+  to = "https://soberoctober.ru/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://www.soberoctober.online/*"
+  to = "https://soberoctober.ru/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "http://soberoctober.online/*"
+  to = "https://soberoctober.ru/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://www.soberoctober.ru/*"
+  to = "https://soberoctober.ru/:splat"
+  status = 301
+  force = true
