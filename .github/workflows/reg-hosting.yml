@@ -1,0 +1,34 @@
+name: Publish to REG hosting
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: reg-hosting-production
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.event_name == 'workflow_dispatch' || vars.REG_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    environment: reg-hosting
+    env:
+      SITE_DOMAIN: soberoctober.ru
+      BASE_PATH: /
+      NOINDEX: 'false'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm test
+      - run: npm run build
+      - run: npm run check
+      - name: Upload website over verified FTPS
+        env:
+          REG_FTP_HOST: ${{ secrets.REG_FTP_HOST }}
+          REG_FTP_USER: ${{ secrets.REG_FTP_USER }}
+          REG_FTP_PASSWORD: ${{ secrets.REG_FTP_PASSWORD }}
+          REG_FTP_ROOT: ${{ secrets.REG_FTP_ROOT }}
+        run: python3 scripts/deploy-reg.py
