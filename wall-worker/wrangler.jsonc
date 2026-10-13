@@ -7,7 +7,7 @@
   "workers_dev": true,
   "observability": {"enabled": false},
   "rules": [{"type":"Text","globs":["**/*.html"],"fallthrough":true}],
-  "vars": {"ALLOWED_ORIGINS":"https://soberoctober.ru,https://pr0kopenko.github.io"},
+  "vars": {"WALL_PAUSED":"true","ALLOWED_ORIGINS":"https://soberoctober.ru,https://pr0kopenko.github.io"},
   "d1_databases": [{"binding":"DB","database_name":"soberoctober-wall","database_id":"687bf590-aa08-423a-82fd-3a2ca0dbee50"}],
   "triggers": {"crons":["17 3 * * *"]}
 }

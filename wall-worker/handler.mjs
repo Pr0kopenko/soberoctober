@@ -14,6 +14,7 @@ export async function handle(request,env,verifyFetch=fetch){const url=new URL(re
  return respond({error:'Not found'},404);}
  if(url.pathname==='/posts'&&request.method==='GET'){const result=await env.DB.prepare("SELECT id,text,created_at FROM posts WHERE status='approved' ORDER BY created_at DESC LIMIT 60").all();return respond({posts:result.results});}
  if(['/posts','/reports'].includes(url.pathname)&&request.method==='POST'){
+ if(env.WALL_PAUSED==='true')return respond({error:'Общая стена на паузе. Новые записи временно не принимаются.'},503);
  if(!allowed.includes(origin))return respond({error:'Origin rejected'},403);
  if(!env.TURNSTILE_SECRET||!env.MODERATOR_TOKEN)return respond({error:'Приём записей временно закрыт.'},503);
  if(!request.headers.get('Content-Type')?.startsWith('application/json'))return respond({error:'Ожидается JSON'},415);
